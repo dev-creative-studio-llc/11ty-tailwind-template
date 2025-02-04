@@ -1,0 +1,54 @@
+<!-- Navbar -->
+<nav class="bg-gray-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo/Brand -->
+      <div class="flex-shrink-0">
+        <a href="/" class="text-xl font-bold" title="{{site.name}} | {{site.tagline}}" aria-label="Go to {{site.name}} homepage">{{site.name}}</a>
+      </div>
+      <!-- Mobile Menu -->
+        <button
+          id="menu-toggle"
+          class="md:hidden text-white hover:text-blue-300 focus:outline-none"
+        >
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+          <!-- Dynamic Navigation Links -->
+          <ul id="nav-links" class="hidden flex-col absolute top-16 left-0 w-full bg-gray-900 md:flex md:flex-row md:static md:w-auto md:space-x-3 md:space-y-0"> 
+            <!-- Show "Home" if not already on the homepage -->
+            {% if page.url != "/" %}
+            <li>
+              <a href="/" class="nav-item block px-2 py-3 hover:text-blue-400 transition" title="Go to Homepage">
+                <i class="fas fa-home mr-1"></i> Home
+              </a>
+            </li>
+            {% endif %}
+          {% for nav in navItems %}
+          <li>
+              <a href="{{ nav.href }}" {% if nav.isExternal %} target="_blank" {% endif%}
+                class="nav-item block px-2 py-3 {{"text-sm font-medium border-b-2 border-primary" if nav.href == page.url else "hover:text-blue-400 transition" }}" 
+                title="{{ nav.title }}">
+                  <i class="{{ nav.icon }} mr-1"></i>
+                  {{ nav.text }}
+              </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+</nav>

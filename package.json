@@ -1,0 +1,34 @@
+{
+  "name": "11ty-tailwind-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "watch:css": "npx @tailwindcss/cli -i ./src/assets/styles/base.css -o ./dist/assets/styles/base.css --watch",
+    "dev": "npm-run-all --parallel watch:css start",
+    "build": "eleventy",
+    "build:css": "npx @tailwindcss/cli -i ./src/assets/styles/base.css -o ./dist/assets/styles/base.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-creative-studio-llc/11ty-tailwind-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dev-creative-studio-llc/11ty-tailwind-template/issues"
+  },
+  "homepage": "https://github.com/dev-creative-studio-llc/11ty-tailwind-template#readme",
+  "description": "",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.16"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.3",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^4.0.3"
+  }
+}

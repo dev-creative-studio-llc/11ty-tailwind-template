@@ -1,0 +1,32 @@
+---
+title: 
+tagline:
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta
+  property="og:title"
+  content="Discover and Rate the Coolest Desk Setups"
+/>
+<meta
+  property="og:description"
+  content="Explore, rate, and share setups from gamers and streamers around the world."
+/>
+<meta property="og:image" content="{{site.url}}{{ogImage}}" />
+<meta property="og:url" content="{{site.fullName}}" />
+<meta property="og:type" content="website" />
+  {% include "partials/head.njk" %}
+  {% include "partials/opengraph.njk" %}
+
+</head>
+<body class="bg-gray-100 text-gray-900 p-8">
+    {% include "partials/consent.njk" %}
+  <h1 class="text-4xl font-bold text-center text-blue-600">{{title}}</h1>
+  <p class="text-center mt-4">{{tagline}}</p>
+  {% include "partials/footer.njk" %} {% include "scripts/base.njk" %}
+</body>
+</html>

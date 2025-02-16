@@ -9,8 +9,4 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    // Add other plugins if needed
-  ],
 };

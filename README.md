@@ -14,29 +14,35 @@ This repository is a reusable starter template for building static websites with
    - **Dark Mode Enabled:** Easily switch between light and dark themes.
    - **Safe List:** Preserves Font Awesome classes if used in the future.
 
-4. **Sitemap**  
+4. **Fontawesome**  
+   Pre-installed with Free Fontawesome for rapid UI development.
+
+5. **Sitemap**  
    Automatically generated for improved search engine indexing.
 
-5. **Terms of Use Template**  
+6. **Terms of Use Template**  
    A customizable boilerplate for website terms and conditions.
 
-6. **Privacy Policy Template**  
+7. **Privacy Policy Template**  
    Ready-to-edit policy to address data privacy and compliance requirements.
 
-7. **robots.txt**  
+8. **robots.txt**  
    Configured to guide search engine crawlers effectively.
 
-8. **OpenGraph Metadata Section**  
+9. **OpenGraph Metadata Section**  
    Optimizes content previews when shared on social platforms.
 
-9. **Consent Component**  
+10. **Consent Component**  
    A user-friendly consent banner for cookies and tracking scripts.
 
-10. **Google Analytics with Consent Tags**  
+11. **Google Analytics with Consent Tags**  
     GA integration that respects user consent before tracking.
 
-11. **Favicon Section**  
+12. **Favicon Section**  
     Placeholder for favicons generated via [Real Favicon Generator](https://realfavicongenerator.net/).
+
+13. **Github Workflow**  
+    Deploy github repo to AWS S3. Also does HTML, CSS, and Javascript minification.
 
 ## 📦 Getting Started
 

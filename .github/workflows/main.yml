@@ -1,0 +1,50 @@
+name: Deploy 11ty site to S3
+
+on:
+  push:
+    branches:
+      - main
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.7'  # Make sure to use the correct Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build 11ty site
+        run: npx @11ty/eleventy
+
+      - name: Build Tailwind CSS
+        run: npx @tailwindcss/cli -i ./src/assets/styles/base.css -o ./dist/assets/styles/base.css --minify
+
+      - name: Install minification tools
+        run: |
+          npm install -g terser html-minifier-terser
+
+      - name: Minify HTML files
+        run: |
+          find dist -type f -name "*.html" -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-js true {} -o {} \;
+
+      - name: Minify JavaScript files
+        run: |
+          find dist -type f -name "*.js" -exec terser {} -c -m -o {} \;
+    
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync dist folder to S3
+        run: aws s3 sync ./dist ${{ secrets.S3_BUCKET }} --delete

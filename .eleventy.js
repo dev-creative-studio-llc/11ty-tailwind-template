@@ -16,6 +16,10 @@ module.exports = function (eleventyConfig) {
         }
     });
 
+    // Copy Font Awesome webfonts to the output folder
+    eleventyConfig.addPassthroughCopy({
+        "node_modules/@fortawesome/fontawesome-free/webfonts": "assets/webfonts",
+    });
     eleventyConfig.addPassthroughCopy("src/assets/images");
     eleventyConfig.addPassthroughCopy("src/assets/scripts");
     eleventyConfig.addPassthroughCopy("src/assets/favicon");
@@ -46,6 +50,7 @@ module.exports = function (eleventyConfig) {
         dir: {
             input: "src",
             output: "dist",
+            layouts: "_layouts",
         },
     };
 };

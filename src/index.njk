@@ -1,32 +1,28 @@
 ---
-title: 
-tagline:
+title: 11ty + tailwindcss
+description: This repository is a reusable starter template for building static websites with <strong>11ty</strong> and <strong>Tailwind CSS</strong>. It includes essential features for SEO, performance, and privacy compliance.
+dataPage: homepage
+breadcrumb:
+  name: Home
+  width: max-w-4xl px-6 md:px-8
+breadcrumbs:
+noIndex: false
+nav:
+  title: 11ty+tailwindcss
+  items:
+    - name: Home
+      href: /
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
-  <meta
-  property="og:title"
-  content="Discover and Rate the Coolest Desk Setups"
-/>
-<meta
-  property="og:description"
-  content="Explore, rate, and share setups from gamers and streamers around the world."
-/>
-<meta property="og:image" content="{{site.url}}{{ogImage}}" />
-<meta property="og:url" content="{{site.fullName}}" />
-<meta property="og:type" content="website" />
-  {% include "partials/head.njk" %}
-  {% include "partials/opengraph.njk" %}
 
-</head>
-<body class="bg-gray-100 text-gray-900 p-8">
-    {% include "partials/consent.njk" %}
-  <h1 class="text-4xl font-bold text-center text-blue-600">{{title}}</h1>
-  <p class="text-center mt-4">{{tagline}}</p>
-  {% include "partials/footer.njk" %} {% include "scripts/base.njk" %}
-</body>
-</html>
+{% extends "./_layouts/base.njk" %} 
+{% include "partials/breadcrumb.njk" %} 
+{% block content %}
+  <section class="max-w-4xl mx-auto my-12 p-6 md:p-8 bg-white rounded shadow-md">
+    <h1 class="text-4xl font-bold text-center text-blue-600">{{title}}</h1>
+    <p
+    class="font-secondary mt-2 text-gray-700 text-lg leading-relaxed flex-grow"
+  >
+    {{ description | safe }}
+  </p>
+  </section>
+{% endblock %}

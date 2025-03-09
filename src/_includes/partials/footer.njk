@@ -1,18 +1,30 @@
-<button
-  id="back-to-top"
-  class="fixed bottom-4 right-4 bg-primary text-white p-3 w-12 h-12 rounded-full shadow-lg hidden focus:outline-none hover:bg-primary-dark transition"
-  aria-label="Back to top"
->
-  ↑
-</button>
-<footer class="max-w-3xl mx-auto p-6 py-16">
+<div id="sticky-floating-buttons">
+  <button
+    id="back-to-top"
+    class="fixed bottom-4 right-4 bg-blue-600 hover:bg-blue-800 text-white p-4 w-12 h-12 rounded-full shadow-lg text-lg hidden sm:flex focus:outline-none transition duration-300 z-50"
+    aria-label="Back to top"
+  >
+    <i class="fas fa-arrow-up"></i>
+  </button>
+</div>
+
+<footer class="max-w-3xl mx-auto p-6 py-16" role="contentinfo">
   <div class="container text-center">
-    <p class="text-base leading-base">
-      &copy; {{ currentYear }} {{ site.fullName }} | {{ site.tagline }}
+    <p class="font-secondary text-base leading-base">
+      &copy; {{ currentYear }} {{ site.fullName }} | All rights reserved.
     </p>
-    <p class="text-base leading-base">
+    <p class="font-secondary text-base leading-base">
+      <a
+        href="/return-policy"
+        data-track="internal"
+        rel="nofollow"
+        class="text-primary underline hover:text-accent"
+        >Return Policy</a
+      >
+      |
       <a
         href="/privacy-policy"
+        data-track="internal"
         rel="nofollow"
         class="text-primary underline hover:text-accent"
         >Privacy Policy</a
@@ -20,14 +32,36 @@
       |
       <a
         href="/terms-of-use"
+        data-track="internal"
         rel="nofollow"
         class="text-primary underline hover:text-accent"
         >Terms of Use</a
       >
-      |
-      <a href="/sitemap.xml" class="text-primary underline hover:text-accent"
-        >View our Website Sitemap</a
-      >
     </p>
+
+    {% if site.owner.name%}
+      <!-- Ownership Disclosure for UX & Trust -->
+      <p class="font-secondary text-sm leading-base mt-2">
+        This website is owned and operated by
+        <a
+          href="{{ site.owner.url }}"
+          data-track="external"
+          class="text-primary underline hover:text-accent"
+          target="_blank"
+          rel="noopener"
+          >{{ site.owner.name }}</a
+        >.
+      </p>
+    {% endif %}
+    <!-- Persistent Cookie Settings Link -->
+    <div class="mt-4">
+      <a
+        href="#"
+        onclick="openCookieSettings(); return false;"
+        class="font-secondary text-sm text-primary underline hover:text-accent transition-colors"
+      >
+        Update Cookie Settings
+      </a>
+    </div>
   </div>
 </footer>

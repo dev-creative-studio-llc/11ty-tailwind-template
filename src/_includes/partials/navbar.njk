@@ -1,54 +1,142 @@
-<!-- Navbar -->
-<nav class="bg-gray-900 text-white">
+<nav class="font-primary font-medium sticky top-0 bg-white shadow-md z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
-      <!-- Logo/Brand -->
+      <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-xl font-bold" title="{{site.name}} | {{site.tagline}}" aria-label="Go to {{site.name}} homepage">{{site.name}}</a>
-      </div>
-      <!-- Mobile Menu -->
-        <button
-          id="menu-toggle"
-          class="md:hidden text-white hover:text-blue-300 focus:outline-none"
+        <a
+          href="/"
+          data-track="internal"
+          class="text-lg font-primary font-bold text-blue-600"
         >
-          <svg
-            class="h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          {{nav.title}}
+      </a>
+      </div>
+
+      {% if nav.items %}
+      <!-- Desktop Navigation Items -->
+      <div class="hidden lg:flex space-x-6 justify-between items-center">
+        {% for item in nav.items %} {% if item.submenu %}
+        <!-- Dropdown Menu -->
+        <div class="relative group dropdown-parent">
+          <button
+            data-track="navbar"
+            aria-label="{{ item.name }}"
+            class="text-gray-700 font-secondary hover:text-blue-600 focus:outline-none desktop-dropdown-toggle"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+            {{ item.name }}
+            <i
+              id="{{ item.name | slug }}-icon"
+              class="fas fa-chevron-down transition-transform duration-300"
+            ></i>
+          </button>
+          <div id="desktop-navbar-menu"
+            class="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible transition-all group-hover:opacity-100 group-hover:visible"
+          >
+            <ul class="py-2">
+              {% for subitem in item.submenu %}
+              <li>
+                <a
+                  href="{{ subitem.href }}"
+                  data-track="internal"
+                  class="block px-4 py-2 text-gray-700 hover:bg-blue-100 transition"
+                >
+                  {{ subitem.name }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <!-- Standard Menu Items -->
+        {% if item.type == "button" %}
+        <a
+          href="{{ item.href }}"
+          data-track="internal"
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg"
+        >
+          {{ item.name }}
+        </a>
+        {% else %}
+        <a
+          href="{{ item.href }}"
+          data-track="internal"
+          class="text-gray-700 font-secondary hover:text-blue-600 transition"
+        >
+          {{ item.name }}
+        </a>
+        {% endif %} {% endif %} {% endfor %}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden flex items-center">
+        <button
+          id="mobile-menu-toggle"
+          data-track="navbar"
+          aria-label="mobile menu button"
+          class="text-gray-700 focus:outline-none"
+        >
+          <i class="fas fa-bars text-2xl"></i>
         </button>
-          <!-- Dynamic Navigation Links -->
-          <ul id="nav-links" class="hidden flex-col absolute top-16 left-0 w-full bg-gray-900 md:flex md:flex-row md:static md:w-auto md:space-x-3 md:space-y-0"> 
-            <!-- Show "Home" if not already on the homepage -->
-            {% if page.url != "/" %}
-            <li>
-              <a href="/" class="nav-item block px-2 py-3 hover:text-blue-400 transition" title="Go to Homepage">
-                <i class="fas fa-home mr-1"></i> Home
-              </a>
-            </li>
-            {% endif %}
-          {% for nav in navItems %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+    <ul class="py-2 space-y-2">
+      {% for item in nav.items %} {% if item.submenu %}
+      <!-- Mobile Dropdown -->
+      <li>
+        <button
+          data-track="navbar"
+          aria-label="{{ item.name }}"
+          class="dropdown-toggle w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 font-semibold flex items-center justify-between focus:outline-none"
+          data-menu="{{ item.name | slug }}"
+        >
+          {{ item.name }}
+          <i class="fas fa-chevron-right transition-transform duration-300"></i>
+        </button>
+        <ul
+          id="{{ item.name | slug }}-menu"
+          class="dropdown-menu hidden pl-6 space-y-1"
+        >
+          {% for subitem in item.submenu %}
           <li>
-              <a href="{{ nav.href }}" {% if nav.isExternal %} target="_blank" {% endif%}
-                class="nav-item block px-2 py-3 {{"text-sm font-medium border-b-2 border-primary" if nav.href == page.url else "hover:text-blue-400 transition" }}" 
-                title="{{ nav.title }}">
-                  <i class="{{ nav.icon }} mr-1"></i>
-                  {{ nav.text }}
-              </a>
+            <a
+              href="{{ subitem.href }}"
+              data-track="internal"
+              class="block px-4 py-2 text-gray-700 hover:bg-blue-100 transition"
+            >
+              {{ subitem.name }}
+            </a>
           </li>
           {% endfor %}
         </ul>
-      </div>
-    </div>
-  </div>
+      </li>
+      {% else %}
+      <li>
+        {% if item.type == "button" %}
+        <a
+          href="{{ item.href }}"
+          data-track="internal"
+          aria-label="{{ item.name }}"
+          class="block text-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+        >
+          {{ item.name }}
+        </a>
+        {% else %}
+        <a
+          href="{{ item.href }}"
+          data-track="internal"
+          class="block px-4 py-2 text-gray-700 hover:bg-blue-100 transition"
+        >
+          {{ item.name }}
+        </a>
+        {% endif %}
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
   </div>
 </nav>

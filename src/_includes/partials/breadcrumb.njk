@@ -1,0 +1,40 @@
+{% if breadcrumbs %}
+<nav aria-label="Breadcrumb" class="{{breadcrumb.width}} mx-auto text-gray-600 text-sm mt-4">
+    <!-- Desktop Version: Show full breadcrumbs on screens sm and up -->
+    <ol class="hidden lg:flex space-x-2">
+      <li>
+        <a href="/" data-track="internal" class="hover:underline text-blue-600">Home</a>
+        <span class="mx-1">/</span>
+      </li>
+      {% for crumb in breadcrumbs %}
+        {% if crumb.href in page.url %}
+          <li>
+          {% if crumb.hasPage %}
+            <a href="{{ crumb.href }}" data-track="internal" class="hover:underline text-blue-600">{{ crumb.name }}</a>
+          {% else %}
+              <span class="text-gray-500 truncate">{{ crumb.name }}</span> 
+          {% endif %}
+          </li>
+          <li>/</li>
+        {% elseif loop.last %}
+            <span class="font-medium text-gray-800 truncate">
+              {{ currentProduct.name or crumb.name }}
+            </span>
+        {% endif %}
+      {% endfor %}
+    </ol>
+
+    <!-- Mobile Version: Show a simplified breadcrumb on small screens -->
+    <ol class="flex lg:hidden space-x-2">
+      <li>
+        <a href="/" data-track="internal" class="hover:underline text-blue-600">Home</a>
+        <span class="mx-1">/</span>
+        <span class="text-gray-500">…</span>
+        <span class="mx-1">/</span>
+        <span class="font-medium text-gray-800 truncate">
+          {{ (breadcrumbs | last).name }}
+        </span>
+      </li>
+  </ol>
+</nav>
+{% endif %}

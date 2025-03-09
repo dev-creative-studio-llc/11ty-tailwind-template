@@ -1,3 +1,57 @@
+{% if keywords %}
+  <meta name="keywords" content="{{ keywords | join(', ') }}" />
+{% endif %}
+{% if noIndex %}
+  <meta name="robots" content="noindex, nofollow" />
+{% endif %}
+{% if opengraph.type %}
+
+  <!-- Open Graph Metadata -->
+  <meta property="og:type" content="{{opengraph.type}}" />
+  <meta property="og:title" content="{{ opengraph.title }}" />
+  <meta
+    property="og:description"
+    content="{{ opengraph.description or description }}"
+  />
+  <meta property="og:url" content="{{site.url}}{{page.url}}" />
+  <meta
+    property="og:image"
+    content="{{site.url}}/assets/images/{{opengraph.image or currentProduct.image}}"
+  />
+  <meta
+    property="og:image:alt"
+    content="{{opengraph.image_alt or currentProduct.image_alt}}"
+  />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="{{site.name}}" />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ opengraph.title or title }}" />
+  <meta
+    name="twitter:description"
+    content="{{ opengraph.description or description}}"
+  />
+  <meta name="twitter:creator" content="@TheLuisMiranda" />
+  <meta name="twitter:site" content="@Devs_CS" />
+  <meta
+    name="twitter:image"
+    content="{{site.url}}/assets/images/{{opengraph.image or currentProduct.image}}"
+  />
+  <meta
+    name="twitter:image:alt"
+    content="{{opengraph.image_alt or currentProduct.image_alt}}"
+  />
+
+  <!-- LinkedIn Metadata -->
+  <meta
+    property="og:image:secure_url"
+    content="{{site.url}}/assets/images/{{opengraph.image or currentProduct.image}}"
+  />
+  <meta property="og:image:type" content="image/png" />
+{% endif %}
+
 <link rel="stylesheet" href="/assets/styles/base.css" />
 <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />

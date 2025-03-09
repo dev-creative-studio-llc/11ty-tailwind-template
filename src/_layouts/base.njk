@@ -1,0 +1,25 @@
+<!doctype html>
+<html class="scroll-pt-20" lang="en">
+  <head>
+    <title>{{ title }}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ description }}" />  
+    {% include "partials/head.njk" %}     
+    {% block structuredData%}
+    {% endblock %}
+  </head>
+  <body class="bg-gray-100 text-gray-900" data-page="{{dataPage}}">
+    {% include "partials/consent.njk" %}
+    {% block bodyTop%} {% endblock %} 
+    {% block header%} {% endblock %}
+    {% include "partials/navbar.njk" %}
+    <main id="main-content" class="container mx-auto my-8" role="main">
+      {% block content %}{% endblock %}
+    </main>
+    {% include "partials/footer.njk" %}
+    {% block bodyBottom%}{% endblock %}
+    {% include "scripts/base.njk" %} 
+    {% block script%} {% endblock %}
+  </body>
+</html>

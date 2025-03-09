@@ -1,37 +1,172 @@
 <!-- Consent Popup -->
 <div
   id="cookie-consent-banner"
-  class="fixed bottom-0 w-full bg-gray-900 text-white p-4 shadow-md z-50 hidden"
+  class="fixed bottom-0 w-full bg-gray-900 text-white p-4 shadow-md z-100 hidden sm:flex sm:flex-col md:flex-row md:items-center md:justify-between"
 >
   <div
-    class="container flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0"
+    class="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0"
   >
-    <p class="text-sm md:text-base text-left">
-      We use cookies to improve your experience. Analytics tracking requires
-      your consent.
-      <a href="/privacy-policy" class="underline text-primary">Learn more</a>.
+    <p class="font-secondary text-sm md:text-base text-left leading-relaxed">
+      We use cookies to improve your experience. Analytics tracking requires your consent.
+      <a
+        href="/privacy-policy"
+        data-track="internal"
+        class="underline text-primary hover:text-primary-light transition-colors"
+      >Learn more</a>.
     </p>
-    <div class="flex justify-center md:justify-end space-x-4">
+    <div class="flex flex-col sm:flex-row justify-center md:justify-end space-y-2 sm:space-y-0 sm:space-x-4 w-full lg:w-lg">
       <button
         id="accept-cookies"
         data-consent="accept"
-        class="bg-primary px-6 py-3 rounded text-sm md:text-base"
+        aria-label="Accept cookies"
+        onclick="updateConsent('granted')"
+        class="font-primary font-medium bg-green-500 text-white px-4 py-2 rounded transition transform duration-150 ease-in-out hover:bg-green-600 hover:scale-105 active:scale-95"
       >
-        Accept
+        Accept All
       </button>
       <button
         id="reject-cookies"
         data-consent="reject"
-        class="bg-gray-700 px-6 py-3 rounded text-sm md:text-base ml-4"
+        aria-label="Reject cookies"
+        onclick="updateConsent('denied')"
+        class="font-primary font-medium bg-red-500 text-white px-4 py-2 rounded transition transform duration-150 ease-in-out hover:bg-red-600 hover:scale-105 active:scale-95"
       >
-        Reject
+        Deny All
+      </button>
+      <button
+        id="advanced-settings"
+        data-consent="advanced"
+        aria-label="Advanced Settings"
+        onclick="openModal()"
+        class="font-primary font-medium bg-blue-500 text-white px-4 py-2 rounded transition transform duration-150 ease-in-out hover:bg-blue-600 hover:scale-105 active:scale-95"
+      >
+        Advanced Settings
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal for Individual Settings -->
+<div
+  id="individualModal"
+  class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-100"
+>
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-lg p-6">
+    <div class="flex justify-between items-center border-b pb-2">
+      <h3 class="text-xl font-semibold">Individual Settings</h3>
+      <button
+        onclick="closeModal()"
+        class="text-gray-500 text-2xl transition transform duration-150 ease-in-out hover:text-gray-700 active:scale-95"
+      >
+        &times;
+      </button>
+    </div>
+    <div class="mt-4 space-y-6">
+      <!-- Ad Storage -->
+      <div>
+        <label class="block font-medium">Ad Storage:</label>
+        <p class="text-xs text-gray-500">
+          These cookies store data used for advertising purposes, such as tracking user behavior to deliver personalized ads.
+        </p>
+        <div class="mt-1 space-x-2">
+          <button
+            id="btn-ad_storage-granted"
+            onclick="setCookiePreference('ad_storage', 'granted')"
+            class="bg-green-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-green-500 hover:scale-105 active:scale-95"
+          >
+            Grant
+          </button>
+          <button
+            id="btn-ad_storage-denied"
+            onclick="setCookiePreference('ad_storage', 'denied')"
+            class="bg-red-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-red-500 hover:scale-105 active:scale-95"
+          >
+            Deny
+          </button>
+        </div>
+      </div>
+      <!-- Ad User Data -->
+      <div>
+        <label class="block font-medium">Ad User Data:</label>
+        <p class="text-xs text-gray-500">
+          Cookies in this category help track your interactions to optimize and personalize ad content based on your browsing habits.
+        </p>
+        <div class="mt-1 space-x-2">
+          <button
+            id="btn-ad_user_data-granted"
+            onclick="setCookiePreference('ad_user_data', 'granted')"
+            class="bg-green-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-green-500 hover:scale-105 active:scale-95"
+          >
+            Grant
+          </button>
+          <button
+            id="btn-ad_user_data-denied"
+            onclick="setCookiePreference('ad_user_data', 'denied')"
+            class="bg-red-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-red-500 hover:scale-105 active:scale-95"
+          >
+            Deny
+          </button>
+        </div>
+      </div>
+      <!-- Ad Personalization -->
+      <div>
+        <label class="block font-medium">Ad Personalization:</label>
+        <p class="text-xs text-gray-500">
+          These cookies are used to customize the advertisements you see based on your interests and previous interactions.
+        </p>
+        <div class="mt-1 space-x-2">
+          <button
+            id="btn-ad_personalization-granted"
+            onclick="setCookiePreference('ad_personalization', 'granted')"
+            class="bg-green-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-green-500 hover:scale-105 active:scale-95"
+          >
+            Grant
+          </button>
+          <button
+            id="btn-ad_personalization-denied"
+            onclick="setCookiePreference('ad_personalization', 'denied')"
+            class="bg-red-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-red-500 hover:scale-105 active:scale-95"
+          >
+            Deny
+          </button>
+        </div>
+      </div>
+      <!-- Analytics Storage -->
+      <div>
+        <label class="block font-medium">Analytics Storage:</label>
+        <p class="text-xs text-gray-500">
+          These cookies collect anonymous data to help us understand website usage and improve site performance.
+        </p>
+        <div class="mt-1 space-x-2">
+          <button
+            id="btn-analytics_storage-granted"
+            onclick="setCookiePreference('analytics_storage', 'granted')"
+            class="bg-green-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-green-500 hover:scale-105 active:scale-95"
+          >
+            Grant
+          </button>
+          <button
+            id="btn-analytics_storage-denied"
+            onclick="setCookiePreference('analytics_storage', 'denied')"
+            class="bg-red-400 text-white px-3 py-1 rounded transition transform duration-150 ease-in-out hover:bg-red-500 hover:scale-105 active:scale-95"
+          >
+            Deny
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 text-right">
+      <button
+        onclick="closeModal()"
+        class="bg-blue-500 text-white px-4 py-2 rounded transition transform duration-150 ease-in-out hover:bg-blue-600 hover:scale-105 active:scale-95"
+      >
+        Save Settings
       </button>
     </div>
   </div>
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const consent = localStorage.getItem("analytics_consent")
+    const consent = localStorage.getItem("analytics_storage")
     if (!consent) {
       document
         .getElementById("cookie-consent-banner")

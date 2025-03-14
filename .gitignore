@@ -22,3 +22,5 @@ dist/
 # Ignore test files
 .cache
 test/stubs-layout-cache/_includes/*.js
+
+package-lock.json
